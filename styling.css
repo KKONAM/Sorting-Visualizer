@@ -1,0 +1,41 @@
+<html>
+<style >
+	
+	h1{text-align: center;} 
+	.flex-parent {
+		display: flex;
+	}
+	.jc-center {
+		justify-content: center;
+	}
+
+	button.margin-right1 {
+	  margin-right: 40px;
+	  border-radius: 20%;
+	  background-color: skyblue;
+	}
+
+	button.margin-right2 {height
+	  margin-right: 2px;
+	  border-radius: 20%;
+	  background-color: skyblue;
+	}
+
+	button.margin-right3 {
+	  border-radius: 20%;
+	  background-color: skyblue;
+
+	}
+
+    canvas{text-align: center;} 
+	.flex-parent {
+		display: flex;
+	}
+</style>
+<head>
+	<title></title>
+</head>
+<body>
+
+</body>
+</html>

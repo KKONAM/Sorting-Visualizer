@@ -1,0 +1,191 @@
+<html>
+<style>
+
+	h1{text-align: center;} 
+	.flex-parent {
+		display: flex;
+	}
+	.jc-center {
+		justify-content: center;
+	}
+
+	button.margin-right1 {
+	  margin-right: 40px;
+	  border-radius: 20%;
+	  background-color: skyblue;
+	}
+
+	button.margin-right2 {height
+	  margin-right: 2px;
+	  border-radius: 20%;
+	  background-color: skyblue;
+	}
+
+	button.margin-right3 {
+	  border-radius: 20%;
+	  background-color: skyblue;
+
+	}
+
+    canvas{text-align: center;} 
+	.flex-parent {
+		display: flex;
+	}
+
+</style>
+
+
+
+<body style="background-color: seagreen;">
+	<h1 id = "header" style=" color: seashell;">
+	</h1>
+	
+	<div class="flex-parent jc-center">
+		<script>
+		</script>
+		<button type="submit" class="margin-right2" onclick="generateArray()">Generate New Array</button>
+		<button type="submit" class="margin-right1"> Adjust Size of Array </button>
+		<button type="submit" class="margin-right2" onclick="choice(1)"> Quick Sort </button>
+		<button type="submit" class="margin-right2" onclick="choice(2)"> Bubble Sort </button>
+		<button type="submit" class="margin-right2" onclick="choice(3)"> Merge Sort </button>
+		<button type="submit" class="margin-right1" onclick="choice(4)"> Insertion Sort </button>
+		<button type="submit" class="margin-right3"> Adjust Speed of Sort </button>
+		<button type="submit" class="margin-right3" onclick="sort(sortSelection)"> Sort ! </button>
+	</div>
+
+
+
+
+
+	<div class="flex-parent jc-center">
+		<canvas id="myCanvas" width="800" height="600" style="border:5px solid #d3d3d3;">
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
+
+		<script>
+			const values = new Array(100);
+			function generateArray(){
+				var j = 3;
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+				ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+				for (var i = 0; i < values.length; i++){
+					values[i] = Math.floor(Math.random() * 500);
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'black'
+					ctx.beginPath();
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, values[i]);
+					ctx.stroke();
+					j+=8;
+				}
+			}	
+		</script>
+
+		<script>
+			function draw(j,k){
+
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+
+				//setTimeout(function(){
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'seagreen'
+					ctx.beginPath();
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, values[k+1]);
+					ctx.stroke();
+
+					j+=8;
+
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'seagreen'
+					ctx.beginPath();
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, values[k]);
+					ctx.stroke();
+
+					j = j-8;
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'black'
+					ctx.beginPath();
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, values[k]);
+					ctx.stroke();
+
+					j+=8;
+
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'black'
+					ctx.beginPath(); 
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, values[k+1]);
+					ctx.stroke();
+				//},50*k)
+			}
+		</script>
+
+
+
+		<script>
+			function sleep(ms) { // new code: checkout a video about promises
+ 				 return new Promise(resolve => setTimeout(resolve, ms));
+			}
+
+			async function quickSort(values) {  // checkout a video about async javascript
+				var j = 3;
+				var fadeDelay = 5;
+				for(var i = 0; i < values.length-1; i++){
+					for(var k = 0; k < values.length-i-1; k++){
+						if(values[k] > values[k+1]){
+							var temp = values[k];
+							values[k] = values[k+1]
+							values[k+1] = temp;
+
+							await sleep(fadeDelay) // new code
+							draw(j,k);
+
+						}
+
+					 j+=8;
+					}
+					j = 3;
+				}
+			}
+		</script>
+
+		<script>
+			function mergeSort(){
+
+			}
+		</script>
+
+
+
+		<script>
+			var sortSelection;
+
+			function choice(selected){
+				sortSelection = selected;
+			}
+			function sort(sortSelection){
+				if(sortSelection == 1){
+					quickSort(values);
+				}
+			}
+		</script>
+
+
+
+
+
+	</div>
+
+
+
+	<script type="text/javascript">
+		document.getElementById("header").innerHTML = "Sorting Visualizer" ;
+	</script>
+
+</body>
+</html>
