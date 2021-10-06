@@ -1,0 +1,245 @@
+<html>
+<style>
+	<link href="styling.css" rel="stylesheet" type="text/css"> 
+</style>
+
+
+
+<body style="background-color: seagreen;">
+	<h1 id = "header" style=" color: seashell;">
+	</h1>
+	
+	<div class="flex-parent jc-center">
+		<script>
+		</script>
+		<button type="submit" class="margin-right2" onclick="generateArray()">Generate New Array</button>
+		<button type="submit" class="margin-right1"> Adjust Size of Array </button>
+		<button type="submit" class="margin-right2" onclick="choice(1)"> Bubble Sort </button>
+		<button type="submit" class="margin-right2" onclick="choice(2)"> Quick Sort </button>
+		<button type="submit" class="margin-right2" onclick="choice(3)"> Merge Sort </button>
+		<button type="submit" class="margin-right1" onclick="choice(4)"> Insertion Sort </button>
+		<button type="submit" class="margin-right3"> Adjust Speed of Sort </button>
+		<button type="submit" class="margin-right3" onclick="sort(sortSelection)"> Sort ! </button>
+	</div>
+
+
+
+
+
+	<div class="flex-parent jc-center">
+		<canvas id="myCanvas" width="800" height="600" style="border:5px solid #d3d3d3;">
+			Your browser does not support the HTML5 canvas tag.
+		</canvas>
+
+		<script>
+			values = new Array(100);
+			valuesPosition = new Array(100);
+			function generateArray(){
+				var j = 3;
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+				ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+				for (var i = 0; i < values.length; i++){
+					values[i] =  [(Math.floor(Math.random() * 500)),j];
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'black'
+					ctx.beginPath();
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, values[i][0]);
+					ctx.stroke();
+					j+=8;
+				}
+			}
+			generateArray();
+			console.log(values);	
+		</script>
+
+		<script>
+			function bubbleDraw(j,k){
+
+				var c = document.getElementById("myCanvas");
+				var ctx = c.getContext("2d");
+
+				ctx.lineWidth = 3.2 ;
+				ctx.strokeStyle = 'seagreen'
+				ctx.beginPath();
+				ctx.moveTo(j, 0);
+				ctx.lineTo(j, 800);
+				ctx.stroke();
+
+				j+=8;
+
+				ctx.lineWidth = 3.2;
+				ctx.strokeStyle = 'seagreen'
+				ctx.beginPath();
+				ctx.moveTo(j, 0);
+				ctx.lineTo(j, 800);
+				ctx.stroke();
+
+				j = j-8;
+				ctx.lineWidth = 3;
+				ctx.strokeStyle = 'black'
+				ctx.beginPath();
+				ctx.moveTo(j, 0);
+				ctx.lineTo(j, values[k][0]);
+				ctx.stroke();
+
+				j+=8;
+
+				ctx.lineWidth = 3;
+				ctx.strokeStyle = 'black'
+				ctx.beginPath(); 
+				ctx.moveTo(j, 0);
+				ctx.lineTo(j, values[k+1][0]);
+				ctx.stroke();
+		}
+
+			
+		</script>
+
+
+
+		<script>
+			function sleep(ms) { // new code: checkout a video about promises
+ 				 return new Promise(resolve => setTimeout(resolve, ms));
+			}
+
+			async function bubbleSort(values) {  // checkout a video about async javascript
+				var j = 3;
+				var fadeDelay = 10;
+				for(var i = 0; i < values.length-1; i++){
+					for(var k = 0; k < values.length-i-1; k++){
+						if(values[k][0] > values[k+1][0]){
+							var temp = values[k][0];
+							values[k][0] = values[k+1][0];
+							values[k+1][0] = temp;
+
+							await sleep(fadeDelay) // new code
+							bubbleDraw(j,k);
+						}
+					 j+=8;
+					}
+					j = 3;
+				}
+			}
+		</script>
+
+		<script>
+			function insertionSort(values){
+				
+			}
+		</script>
+
+
+
+		<script>
+
+			function mergeDraw(anArray,startPoint){
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			j = startPoint;
+
+				for(num = 0; num < anArray.length; num++){
+					anArray[num][1] = j;
+
+					ctx.lineWidth = 3.2 ;
+					ctx.strokeStyle = 'seagreen'
+					ctx.beginPath();
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, 800);
+					ctx.stroke();
+
+					ctx.lineWidth = 3;
+					ctx.strokeStyle = 'black'
+					ctx.beginPath(); 
+					ctx.moveTo(j, 0);
+					ctx.lineTo(j, anArray[num][0]);
+					ctx.stroke();
+
+					j+=8;
+				}
+			}
+
+
+			//Merger function, which merges 2 sorted array into 1 sorted array
+			function merger(arr1, arr2) {
+
+			  let i = 0,j = 0,mergedArr = [];
+			  while (i < arr1.length && j < arr2.length) {
+
+			    if (arr1[i][0] > arr2[j][0]){
+
+			    	mergedArr.push(arr2[j]);
+			    	j++;
+			    } else{
+			    	mergedArr.push(arr1[i]);
+			    	i++;
+			    }
+
+			  }
+			  while (i < arr1.length) {
+			    mergedArr.push(arr1[i]);
+			    i++;
+			  }
+			  while (j < arr2.length) {
+			    mergedArr.push(arr2[j]);
+			    j++;
+			  }
+
+
+			  var lowest = mergedArr[0][1];
+			  for( num = 1; num < mergedArr.length; num++){
+			  	if(mergedArr[num][1] < lowest){
+			  		lowest = mergedArr[num][1];
+			  	}
+			  }
+			  mergeDraw(mergedArr, lowest);
+
+			  return mergedArr;
+			}
+
+
+
+			function mergeSort(array) {
+
+			  //Array of length 1 is sorted so we return the same array back
+			  if (array.length == 1) return array;
+
+			  //Break down the array to half from middle into left and right
+			  let middle = Math.floor(array.length / 2);
+			  let left = mergeSort(array.slice(0, middle));
+			  let right = mergeSort(array.slice(middle));
+
+			  //Return the merged sorted array
+			  return merger(left, right);
+			}
+		</script>
+
+
+		<script>
+			var sortSelection;
+
+			function choice(selected){
+				sortSelection = selected;
+			}
+			function sort(sortSelection){
+				if(sortSelection == 1){
+					bubbleSort(values);
+				}
+				if(sortSelection == 3){
+					let sorted = mergeSort(values);
+					console.log(sorted);
+				}
+			}
+		</script>
+
+	</div>
+
+
+
+	<script type="text/javascript">
+		document.getElementById("header").innerHTML = "Sorting Visualizer" ;
+	</script>
+
+</body>
+</html>
